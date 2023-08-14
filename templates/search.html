@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Page</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column; /* Display children elements vertically */
+            gap: 10px; /* Add some space between elements */
+        }
+        .input-group input[type="text"], .input-group input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-group button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>What did I do on Reddit??</h2>
+        <div class="input-group">
+            <input type="text" id="searchInput" placeholder="Enter your query">
+            <input type="text" id="username" placeholder="Enter your username">
+            <input type="text" id="password" placeholder="Enter your password">
+            <input type="number" id="numposts" placeholder="Enter number of posts to search">
+            <button onclick="sendPostRequest()">Search</button>
+        </div>
+    </div>
+
+    <script>
+        function sendPostRequest() {
+            var query = document.getElementById('searchInput').value;
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var numPosts = document.getElementById('numposts').value;
+
+            var data = {
+                query: query,
+                username: username,
+                password: password,
+                numposts: numPosts
+            };
+            fetch('http://127.0.0.1:8000/langchain/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `http://127.0.0.1:8000/display/?data=${encodeURIComponent(JSON.stringify(data))}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

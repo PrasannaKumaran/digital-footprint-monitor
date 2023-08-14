@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reddit Thumbnails</title>
+</head>
+<body>
+    <div id="thumbnails">
+        {% for item in response %}
+            <div>
+                <a href="{{ item.url }}" target="_blank">
+                    <img src="{{ item.thumbnail }}" alt="{{ item.title }}" style="width: 100px; height: 100px;">
+                </a>
+                <p>{{ item.title }}</p>
+                <p>Subreddit: {{ item.subreddit }}</p>
+                <p>Author: {{ item.author }}</p>
+                <p>Upvotes: {{ item.ups }}</p>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
