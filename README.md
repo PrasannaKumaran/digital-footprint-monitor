@@ -4,7 +4,10 @@ Digital footprint monitor is a personalized web application that focuses on moni
 # How does it work?
 Django is used as the backend for the web application where all the database connection, routing functionalities take place.  Multiple apps are created with their own functionalities and are integrated together. To faciliate easier database maintence, MongoDB Atlas cloud database was used to store the user data. 
 
-![alt text](figures\flowDiagram.png){: width="300px"}
+<!-- ![alt text](figures\flowDiagram.png){: width="300px"} -->
+<p align="center">
+  <img src="figures\flowDiagram.png" width="400">
+</p>. 
 
 ### Extracting data from Chrome
 In order to analyse user data, it needs to be extracted on a regular basis and the **cloud database** needs to hold the latest user activity information. To handle this, a **chrome extension** has been developed. The code for this extension can be found in the [dataExtractor](dataExtractor) folder. 
@@ -96,9 +99,16 @@ GOOGLE_API_KEY
 
 ## Display 
 ### Visualization
-![alt text](figures\visualization.png){: width="300px"}
+<!-- ![alt text](figures\visualization.png){: width="300px"} -->
+<p align="center">
+  <img src="figures\visualization.png" width="400">
+</p>
+
 ### User query form
-![alt text](figures\userSearch.png){: width="300px"}
+<!-- ![alt text](figures\userSearch.png){: width="300px"} -->
+<p align="center">
+  <img src="figures\userSearch.png" width="400">
+</p>. 
 
 ## Future scope of the project
 > In the upcoming stages, my plan involves integrating Google authentication into the pipeline. This enhancement will grant multiple users access to the system, thereby facilitating scalability. Furthermore, I intend to deploy the system on the cloud, leveraging its benefits for efficiency and accessibility.
