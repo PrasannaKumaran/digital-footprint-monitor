@@ -1,8 +1,8 @@
 # Digital Footprint Monitor
-Digital footprint monitor is a personalized web application that focuses on monitoring the digital (particularly chrome) activity of a user. The chrome downloads, bookmarks, history are monitored on a periodic or instant basis and is stored securely on a remote database. The stored data is then used for analysing behavioural activity where the user can assess their usage and understand the content they are consuming. The reddit upvote data is also fetched on request and stored on the cloud. Furthermore, the project integrates ***OpenAI's GPT*** model to retrieve reddit posts that are relevant to the user query using vector databses.  The main objective of the work is to enable the user to use the digital platform (here chrome) with caution and monitor their activities, thereby assessing what they should and shouldn't do.   
+Digital footprint monitor is a personalized web application that focuses on monitoring the digital (particularly chrome) activity of a user. The chrome downloads, bookmarks, history are monitored on a periodic or instant basis and is stored securely on a remote database. The stored data is then used for analysing behavioral activity where the user can assess their usage and understand the content they are consuming. The reddit upvoted data is also fetched on request and stored on the cloud. Furthermore, the project integrates ***OpenAI's GPT*** model to retrieve reddit posts that are relevant to the user query using vector databases.  The main objective of the work is to enable the user to use the digital platform (here chrome) with caution and monitor their activities, thereby assessing what they should and shouldn't do.   
 
 # How does it work?
-Django is used as the backend for the web application where all the database connection, routing functionalities take place.  Multiple apps are created with their own functionalities and are integrated together. To faciliate easier database maintence, MongoDB Atlas cloud database was used to store the user data. 
+Django is used as the backend for the web application where all the database connection, routing functionalities take place.  Multiple apps are created with their own functionalities and are integrated together. To facilitate easier database maintenance, MongoDB Atlas cloud database was used to store the user data. 
 
 <!-- ![alt text](figures\flowDiagram.png){: width="300px"} -->
 <p align="center">
@@ -11,21 +11,21 @@ Django is used as the backend for the web application where all the database con
 
 ### Extracting data from Chrome
 In order to analyse user data, it needs to be extracted on a regular basis and the **cloud database** needs to hold the latest user activity information. To handle this, a **chrome extension** has been developed. The code for this extension can be found in the [dataExtractor](dataExtractor) folder. 
-- [background.js](dataExtractor\background.js) contains the code where the data is retrieved on a periodic basis. **Cron jobs** are written to extract the history and bookmark data. History is extracted every *30 minutes* and the bookmark data is extracted *weekly once*.  The download information is extracted at the instant a *user saves or downloads*  an information. 
-- [manifest.json](dataExtractor\manifest.json) contains the manifest version, permissions and oauth2 details of the chrome extension. In order to create your own extension replace
+- [background.js](dataExtractor/background.js) contains the code where the data is retrieved on a periodic basis. **Cron jobs** are written to extract the history and bookmark data. History is extracted every *30 minutes* and the bookmark data is extracted *weekly once*.  The download information is extracted at the instant a *user saves or downloads*  an information. 
+- [manifest.json](dataExtractor/manifest.json) contains the manifest version, permissions and oauth2 details of the chrome extension. In order to create your own extension replace
 ```
 "{"client_id": "<ENTER YOUR GOOGLE CLIENT ID HERE>"}
 ``` 
 with your google client ID which you can create in the google console.  More details can be found on this [link](https://developers.google.com/workspace/guides/create-credentials). Now we have a working chrome extension with cron jobs that periodically extracts user information. 
 
 ### Chrome
-[Chrome pipeline](chromepipeline) is one of the apps in the **Django** project which is responsible for handling the post request that are made by the chrome extension. It reads the data that is been sent from the extension, processes it and updates the cloud **MongoDB database**. Details of how the data is processed and the database schema can be found in this python [file](chromepipeline\views.py). 
+[Chrome pipeline](chromepipeline) is one of the apps in the **Django** project which is responsible for handling the post request that are made by the chrome extension. It reads the data that is been sent from the extension, processes it and updates the cloud **MongoDB database**. Details of how the data is processed and the database schema can be found in this python [file](chromepipeline/views.py). 
 
 ### Reddit 
-[RedditInfo](redditInfo) is one another important app in the project aimed at extracting the posts upvoted by the user.  Firstly, the user types in their username and password of their reddit account. The database doesn't store this private information and using Reddit OAuth, only authenticated requests are processed. MongoDB cloud database retrieves relevant documents for the `user's query`. You can find the implementation details of the app in the python [file](redditInfo\views.py). More details about how the document is retrieved is detailed in the following sections.
+[RedditInfo](redditInfo) is one another important app in the project aimed at extracting the posts upvoted by the user.  Firstly, the user types in their username and password of their reddit account. The database doesn't store this private information and using Reddit OAuth, only authenticated requests are processed. MongoDB cloud database retrieves relevant documents for the `user's query`. You can find the implementation details of the app in the python [file](redditInfo/views.py). More details about how the document is retrieved is detailed in the following sections.
 
 ### Visualization
-[Visualization](visualization) app was developed to visualize the data extracted and stored on the cloud. Interactive plots were created using **vega-altair** which analyzed different aspects of the **user's behavioural** data including
+[Visualization](visualization) app was developed to visualize the data extracted and stored on the cloud. Interactive plots were created using **vega-altair** which analyzed different aspects of the **user's behavioral** data including
 * Number of visits to a domain over the course of time 
 * Total 10 visited domains (ex.  youtube, google, yahoo) 
 * Top 3 bookmarked domains on each day in the past week
