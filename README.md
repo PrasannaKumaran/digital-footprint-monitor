@@ -118,7 +118,7 @@ GOOGLE_API_KEY
 > As the project progresses, a significant focus will be directed towards refining the front-end interface. By doing so, I aim to create an intuitive and seamless user experience that aligns with modern design principles and usability standards.
 
 ## Tools used
-Several tools, frameworks and libraries were used and include, Django, MongoDB, Vega-altair, chrome extension, chrome APIs, reddit APIs, HTML, CSS, Javascript, Python. 
+Several tools, frameworks and libraries were used and include, Django, MongoDB, Vega-altair, chrome extension, chrome APIs, reddit APIs, HTML, CSS, Javascript, Python, Pandas 
 
 ### Contributors and Acknowledgement
 The entire project was designed and developed by [Prasannakumaran Dhanasekaran](https://github.com/PrasannaKumaran). I would like to extend my gratitude to the [MLOps](https://discord.gg/QNSDyjsh) discord community. Their insights were useful in deciding the tools and tasks.  
